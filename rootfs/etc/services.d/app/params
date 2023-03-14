@@ -5,7 +5,7 @@ set -u # Treat unset variables as an error.
 
 # Set location of profile.
 echo "--profile"
-echo "/config/profile"
+echo "/data/profile"
 
 # Make sure we don't get ask to be the default browser.
 echo "--setDefaultBrowser"

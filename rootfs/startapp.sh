@@ -3,7 +3,7 @@
 set -e # Exit immediately if a command exits with a non-zero status.
 set -u # Treat unset variables as an error.
 
-export HOME=/config
+export HOME=/data
 
 PIDS=
 
@@ -28,4 +28,4 @@ done
 set -e
 
 /usr/bin/firefox --version
-exec /usr/bin/firefox "$@" >> /config/log/firefox/output.log 2>> /config/log/firefox/error.log
+exec /usr/bin/firefox "$@" >> /data/log/firefox/output.log 2>> /data/log/firefox/error.log

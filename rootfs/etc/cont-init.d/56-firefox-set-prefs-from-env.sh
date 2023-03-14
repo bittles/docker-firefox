@@ -2,7 +2,7 @@
 
 set -e
 
-PREF_FILE="${1:-/config/profile/prefs.js}"
+PREF_FILE="${1:-/data/profile/prefs.js}"
 
 if [ -z "$PREF_FILE" ]; then
     echo "ERROR: Preference file not set."

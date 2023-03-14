@@ -4,18 +4,18 @@ set -e # Exit immediately if a command exits with a non-zero status.
 set -u # Treat unset variables as an error.
 
 # Make sure some directories are created.
-mkdir -p /config/downloads
-mkdir -p /config/log/firefox
-mkdir -p /config/profile
+mkdir -p /data/downloads
+mkdir -p /data/log/firefox
+mkdir -p /data/profile
 
 # Generate machine id.
-if [ ! -f /config/machine-id ]; then
+if [ ! -f /data/machine-id ]; then
     echo "generating machine-id..."
-    cat /proc/sys/kernel/random/uuid | tr -d '-' > /config/machine-id
+    cat /proc/sys/kernel/random/uuid | tr -d '-' > /data/machine-id
 fi
 
 # Copy default preferences.
-[ -f /config/profile/prefs.js ] || cp /defaults/prefs.js /config/profile/prefs.js
+[ -f /data/profile/prefs.js ] || cp /defaults/prefs.js /data/profile/prefs.js
 
 # Clean/optimize Firefox databases.
 #if [ -d /config/.mozilla/firefox ] && [ -d /config/profile ]; then
@@ -24,8 +24,8 @@ fi
 #fi
 
 # Fix window display size is session stores.
-if [ -n "$(ls /config/profile/sessionstore-backups/*.jsonlz4 2>/dev/null)" ]; then
-    for FILE in /config/profile/sessionstore-backups/*.jsonlz4; do
+if [ -n "$(ls /data/profile/sessionstore-backups/*.jsonlz4 2>/dev/null)" ]; then
+    for FILE in /data/profile/sessionstore-backups/*.jsonlz4; do
         WORKDIR="$(mktemp -d)"
 
         dejsonlz4 "$FILE" "$WORKDIR"/json
@@ -48,6 +48,7 @@ fi
 
 # Initialize log files.
 for LOG_FILE in /config/log/firefox/output.log /config/log/firefox/error.log
+for LOG_FILE in /data/log/firefox/error.log
 do
     touch "$LOG_FILE"
 
@@ -57,4 +58,6 @@ do
     fi
 done
 
+# Take ownership of the config directory content.
+find /data -mindepth 1 -exec chown $USER_ID:$GROUP_ID {} \;
 # vim: set ft=sh :
