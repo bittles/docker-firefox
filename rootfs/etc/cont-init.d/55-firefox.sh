@@ -47,8 +47,7 @@ if [ -n "$(ls /data/profile/sessionstore-backups/*.jsonlz4 2>/dev/null)" ]; then
 fi
 
 # Initialize log files.
-for LOG_FILE in /config/log/firefox/output.log /config/log/firefox/error.log
-for LOG_FILE in /data/log/firefox/error.log
+for LOG_FILE in /data/log/firefox/output.log /data/log/firefox/error.log
 do
     touch "$LOG_FILE"
 
